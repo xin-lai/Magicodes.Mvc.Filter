@@ -95,5 +95,9 @@ namespace Magicodes.Mvc.RoleMenuFilter
         ///     标记
         /// </summary>
         public string Tag { get; set; }
+
+        public string Action { get; set; }
+
+        public string Controller { get; set; }
     }
 }

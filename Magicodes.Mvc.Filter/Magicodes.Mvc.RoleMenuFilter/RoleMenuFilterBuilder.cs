@@ -131,6 +131,7 @@ namespace Magicodes.Mvc.RoleMenuFilter
                             if (controllerRoleMenuAttr != null)
                             {
                                 Logger?.Log(LoggerLevels.Debug, "正在加载控制器" + controllerType.FullName + "的角色菜单...");
+                                controllerRoleMenuAttr.Controller = controllerType.Name;
                                 RoleMenuFilter.RoleMenuList.Add(controllerRoleMenuAttr);
                             }
 
@@ -139,6 +140,9 @@ namespace Magicodes.Mvc.RoleMenuFilter
                                 Logger?.Log(LoggerLevels.Debug, "找到Action " + action.Name + "...");
                                 var roleMenuFilter = action.GetCustomAttribute<RoleMenuFilter>();
                                 if (roleMenuFilter == null) continue;
+                                //TODO:特性判断
+                                roleMenuFilter.Controller = controllerType.Name;
+                                roleMenuFilter.Action = action.Name;
                                 Logger?.Log(LoggerLevels.Debug, "正在加载Action " + action.Name + " 的角色菜单...");
                                 RoleMenuFilter.RoleMenuList.Add(roleMenuFilter);
                             }
