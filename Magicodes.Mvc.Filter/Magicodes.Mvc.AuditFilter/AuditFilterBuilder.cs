@@ -47,7 +47,7 @@ namespace Magicodes.Mvc.AuditFilter
         /// </summary>
         public void Build()
         {
-            Configs.OnAuditLoging = OnAuditLoging;
+            AuditFilter.OnAuditLoging = OnAuditLoging;
         }
     }
 }

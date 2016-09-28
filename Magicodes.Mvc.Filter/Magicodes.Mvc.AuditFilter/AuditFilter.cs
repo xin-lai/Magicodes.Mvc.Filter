@@ -15,6 +15,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 
@@ -25,6 +26,7 @@ namespace Magicodes.Mvc.AuditFilter
     /// </summary>
     public class AuditFilter : ActionFilterAttribute, IExceptionFilter
     {
+        internal static Action<AuditFilter, HttpContextBase> OnAuditLoging { get; set; }
         private Stopwatch _currentStopwatch;
 
         public AuditFilter(string title, string code = null, string desc = null)
@@ -123,8 +125,8 @@ namespace Magicodes.Mvc.AuditFilter
                 Code = string.Format("{0}-{1}", filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,
                     filterContext.ActionDescriptor.ActionName);
             ContentLength = filterContext.HttpContext.Request.ContentLength;
-            if (Configs.OnAuditLoging == null) return;
-            Configs.OnAuditLoging(this, filterContext.HttpContext);
+            if (AuditFilter.OnAuditLoging == null) return;
+            AuditFilter.OnAuditLoging(this, filterContext.HttpContext);
         }
     }
 }
