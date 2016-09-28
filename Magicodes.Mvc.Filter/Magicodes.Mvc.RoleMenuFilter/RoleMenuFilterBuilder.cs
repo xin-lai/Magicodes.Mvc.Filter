@@ -25,11 +25,6 @@ namespace Magicodes.Mvc.RoleMenuFilter
     public class RoleMenuFilterBuilder
     {
         /// <summary>
-        ///     检索出的RoleMenuFilter实例集合
-        /// </summary>
-        internal static readonly List<RoleMenuFilter> List = new List<RoleMenuFilter>();
-
-        /// <summary>
         ///     需要初始化的程序集
         /// </summary>
         private readonly List<string> _containAssemblys = new List<string>();
@@ -64,7 +59,7 @@ namespace Magicodes.Mvc.RoleMenuFilter
         /// <returns></returns>
         public RoleMenuFilterBuilder WithRoleControl()
         {
-            //TODO:角色权限控制实现
+            RoleMenuFilter.EnableRoleControl = true;
             return this;
         }
 
@@ -117,7 +112,7 @@ namespace Magicodes.Mvc.RoleMenuFilter
         public void Build()
         {
             InitRoleMenuList();
-            _menuInitAction?.Invoke(List);
+            _menuInitAction?.Invoke(RoleMenuFilter.RoleMenuList);
         }
 
         private void InitRoleMenuList()
@@ -136,7 +131,7 @@ namespace Magicodes.Mvc.RoleMenuFilter
                             if (controllerRoleMenuAttr != null)
                             {
                                 Logger?.Log(LoggerLevels.Debug, "正在加载控制器" + controllerType.FullName + "的角色菜单...");
-                                List.Add(controllerRoleMenuAttr);
+                                RoleMenuFilter.RoleMenuList.Add(controllerRoleMenuAttr);
                             }
 
                             foreach (var action in controllerType.GetMethods().Where(p => p.IsPublic && !p.IsStatic))
@@ -145,7 +140,7 @@ namespace Magicodes.Mvc.RoleMenuFilter
                                 var roleMenuFilter = action.GetCustomAttribute<RoleMenuFilter>();
                                 if (roleMenuFilter == null) continue;
                                 Logger?.Log(LoggerLevels.Debug, "正在加载Action " + action.Name + " 的角色菜单...");
-                                List.Add(roleMenuFilter);
+                                RoleMenuFilter.RoleMenuList.Add(roleMenuFilter);
                             }
                         }
                         catch (Exception ex)

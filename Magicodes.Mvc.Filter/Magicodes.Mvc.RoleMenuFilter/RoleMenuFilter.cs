@@ -6,7 +6,7 @@
 //          filename : RoleMenuFilter.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/28 11:28
+//          created by 李文强 at  2016/09/28 11:45
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub：https://github.com/xin-lai
 //          Home：http://xin-lai.com
@@ -14,12 +14,23 @@
 // ======================================================================
 
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Magicodes.Mvc.RoleMenuFilter
 {
     public class RoleMenuFilter : ActionFilterAttribute
     {
+        /// <summary>
+        ///     检索出的RoleMenuFilter实例集合
+        /// </summary>
+        internal static readonly List<RoleMenuFilter> RoleMenuList = new List<RoleMenuFilter>();
+
+        /// <summary>
+        ///     是否启用角色控制
+        /// </summary>
+        internal static bool EnableRoleControl = false;
+
         /// <summary>
         ///     角色菜单控制和注册
         /// </summary>

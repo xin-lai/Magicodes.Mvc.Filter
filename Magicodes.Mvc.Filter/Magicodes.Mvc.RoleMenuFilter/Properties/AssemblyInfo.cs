@@ -21,9 +21,9 @@ using System.Runtime.InteropServices;
 // 与程序集关联的信息。
 
 [assembly: AssemblyTitle("Magicodes.Mvc.RoleMenuFilter")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Magicodes角色菜单控制筛选器，具备角色菜单控制、权限控制等功能")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("湖南心莱信息科技有限公司")]
 [assembly: AssemblyProduct("Magicodes.Mvc.RoleMenuFilter")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
@@ -50,5 +50,5 @@ using System.Runtime.InteropServices;
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.*")]
+//[assembly: AssemblyFileVersion("1.0.0.0")]

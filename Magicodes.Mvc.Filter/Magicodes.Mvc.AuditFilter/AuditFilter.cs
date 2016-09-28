@@ -70,7 +70,7 @@ namespace Magicodes.Mvc.AuditFilter
         /// <summary>
         ///     请求路径
         /// </summary>
-        public object RequestUrl { get; set; }
+        public string RequestUrl { get; set; }
 
         /// <summary>
         ///     客户端IP
