@@ -126,7 +126,7 @@ namespace Magicodes.Mvc.AuditFilter
                     filterContext.ActionDescriptor.ActionName);
             ContentLength = filterContext.HttpContext.Request.ContentLength;
             if (AuditFilter.OnAuditLoging == null) return;
-            AuditFilter.OnAuditLoging(this, filterContext.HttpContext);
+            AuditFilter.OnAuditLoging.Invoke(this, filterContext.HttpContext);
         }
     }
 }

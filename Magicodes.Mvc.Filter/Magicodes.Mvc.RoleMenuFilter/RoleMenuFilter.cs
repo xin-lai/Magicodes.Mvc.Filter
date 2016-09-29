@@ -48,7 +48,7 @@ namespace Magicodes.Mvc.RoleMenuFilter
         {
             Title = title;
             Id = Guid.Parse(id);
-            OrderNo = orderNo == default(int) ? (int?) null : orderNo;
+            OrderNo = orderNo;
             ParentId = string.IsNullOrWhiteSpace(parentId) ? (Guid?) null : Guid.Parse(parentId);
             Url = url;
             IconCls = iconCls;
@@ -69,7 +69,7 @@ namespace Magicodes.Mvc.RoleMenuFilter
         /// <summary>
         ///     菜单排序号
         /// </summary>
-        public int? OrderNo { get; set; }
+        public int OrderNo { get; set; }
 
         /// <summary>
         ///     父级菜单Id

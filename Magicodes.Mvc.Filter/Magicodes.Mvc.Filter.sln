@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magicodes.Mvc.AuditFilter",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magicodes.Mvc.RoleMenuFilter", "Magicodes.Mvc.RoleMenuFilter\Magicodes.Mvc.RoleMenuFilter.csproj", "{74295EFB-4DA2-43CD-A0C2-0F34FA04DD10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magicodes.Mvc.AccessFilter", "Magicodes.Mvc.AccessFilter\Magicodes.Mvc.AccessFilter.csproj", "{7F94DC14-D77A-47FB-B3CF-A569B56BB091}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{74295EFB-4DA2-43CD-A0C2-0F34FA04DD10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74295EFB-4DA2-43CD-A0C2-0F34FA04DD10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74295EFB-4DA2-43CD-A0C2-0F34FA04DD10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F94DC14-D77A-47FB-B3CF-A569B56BB091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F94DC14-D77A-47FB-B3CF-A569B56BB091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F94DC14-D77A-47FB-B3CF-A569B56BB091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F94DC14-D77A-47FB-B3CF-A569B56BB091}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
