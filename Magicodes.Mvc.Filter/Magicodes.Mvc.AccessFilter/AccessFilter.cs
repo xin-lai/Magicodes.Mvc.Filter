@@ -6,7 +6,7 @@
 //          filename : AccessFilter.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/29 10:49
+//          created by 李文强 at  2016/09/29 15:35
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub：https://github.com/xin-lai
 //          Home：http://xin-lai.com
@@ -64,6 +64,11 @@ namespace Magicodes.Mvc.AccessFilter
         /// </summary>
         internal static string[] AccessUrlPrefixs { get; set; }
 
+        /// <summary>
+        ///     排除的前缀
+        /// </summary>
+        internal static string[] ExcludeUrlPrefixs { get; set; }
+
         internal bool EnableAccessLog { get; set; }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -72,13 +77,28 @@ namespace Magicodes.Mvc.AccessFilter
 
             if (filterContext.HttpContext.Request.Url != null)
                 RequestUrl = filterContext.HttpContext.Request.Url.ToString();
-            if ((AccessUrlPrefixs != null) && (AccessUrlPrefixs.Length > 0) && (RequestUrl != null))
+            if (RequestUrl == null)
+            {
+                EnableAccessLog = true;
+            }
+            else if (ExcludeUrlPrefixs != null && ExcludeUrlPrefixs.Length > 0)
+            {
+                foreach (var prefix in ExcludeUrlPrefixs)
+                    if (RequestUrl.ToLower().StartsWith(prefix.ToLower()))
+                    {
+                        EnableAccessLog = false;
+                        break;
+                    }
+            }
+            else if ((AccessUrlPrefixs != null) && (AccessUrlPrefixs.Length > 0))
+            {
                 foreach (var prefix in AccessUrlPrefixs)
-                    if (RequestUrl.Contains(prefix))
+                    if (RequestUrl.ToLower().StartsWith(prefix.ToLower()))
                     {
                         EnableAccessLog = true;
                         break;
                     }
+            }
             else
                 EnableAccessLog = true;
             if (EnableAccessLog)

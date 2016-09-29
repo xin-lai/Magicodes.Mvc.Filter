@@ -21,7 +21,14 @@ namespace Magicodes.Mvc.AccessFilter
     public class AccessFilterBuilder
     {
         private Action<AccessFilter, HttpContextBase> OnAccessLoging { get; set; }
+        /// <summary>
+        /// 包含的前缀
+        /// </summary>
         private string[] AccesssUrlPrefixs { get; set; }
+        /// <summary>
+        /// 排除的前缀
+        /// </summary>
+        private string[] ExcludeUrlPrefixs { get; set; }
 
         /// <summary>
         ///     创建实例
@@ -47,9 +54,20 @@ namespace Magicodes.Mvc.AccessFilter
         /// </summary>
         /// <param name="urlPrefixs"></param>
         /// <returns></returns>
-        public AccessFilterBuilder StartWithUrls(params string[] urlPrefixs)
+        public AccessFilterBuilder WithIncludeUrlPrefixs(params string[] urlPrefixs)
         {
             AccesssUrlPrefixs = urlPrefixs;
+            return this;
+        }
+
+        /// <summary>
+        /// 排除的前缀
+        /// </summary>
+        /// <param name="urlPrefixs"></param>
+        /// <returns></returns>
+        public AccessFilterBuilder WithExcludeUrlPrefixs(params string[] urlPrefixs)
+        {
+            ExcludeUrlPrefixs = urlPrefixs;
             return this;
         }
 
@@ -60,6 +78,7 @@ namespace Magicodes.Mvc.AccessFilter
         {
             AccessFilter.OnAccessLoging = OnAccessLoging;
             AccessFilter.AccessUrlPrefixs = AccesssUrlPrefixs;
+            AccessFilter.ExcludeUrlPrefixs = ExcludeUrlPrefixs;
         }
     }
 }
