@@ -131,7 +131,7 @@ namespace Magicodes.Mvc.RoleMenuFilter
                             if (controllerRoleMenuAttr != null)
                             {
                                 Logger?.Log(LoggerLevels.Debug, "正在加载控制器" + controllerType.FullName + "的角色菜单...");
-                                controllerRoleMenuAttr.Controller = controllerType.Name.IndexOf("Controller", StringComparison.CurrentCultureIgnoreCase) == -1 ? controllerType.Name : controllerType.Name.Remove(0, controllerType.Name.Length - "Controller".Length);
+                                controllerRoleMenuAttr.Controller = controllerType.Name.IndexOf("Controller", StringComparison.CurrentCultureIgnoreCase) == -1 ? controllerType.Name : controllerType.Name.Remove(controllerType.Name.Length - "Controller".Length);
                                 RoleMenuFilter.RoleMenuList.Add(controllerRoleMenuAttr);
                             }
 
@@ -141,7 +141,7 @@ namespace Magicodes.Mvc.RoleMenuFilter
                                 var roleMenuFilter = action.GetCustomAttribute<RoleMenuFilter>();
                                 if (roleMenuFilter == null) continue;
                                 //TODO:特性判断
-                                roleMenuFilter.Controller = controllerType.Name.IndexOf("Controller", StringComparison.CurrentCultureIgnoreCase) == -1 ? controllerType.Name : controllerType.Name.Remove(0, controllerType.Name.Length - "Controller".Length);
+                                roleMenuFilter.Controller = controllerType.Name.IndexOf("Controller", StringComparison.CurrentCultureIgnoreCase) == -1 ? controllerType.Name : controllerType.Name.Remove(controllerType.Name.Length - "Controller".Length);
                                 roleMenuFilter.Action = action.Name;
                                 Logger?.Log(LoggerLevels.Debug, "正在加载Action " + action.Name + " 的角色菜单...");
                                 RoleMenuFilter.RoleMenuList.Add(roleMenuFilter);

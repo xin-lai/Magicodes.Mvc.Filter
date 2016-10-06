@@ -6,7 +6,7 @@
 //          filename : AccessFilter.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/29 15:35
+//          created by 李文强 at  2016/10/06 11:52
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub：https://github.com/xin-lai
 //          Home：http://xin-lai.com
@@ -54,9 +54,14 @@ namespace Magicodes.Mvc.AccessFilter
         ///     当前请求数据大小
         /// </summary>
         public int ContentLength { get; set; }
-
+        /// <summary>
+        /// Action名称
+        /// </summary>
         public string Action { get; set; }
 
+        /// <summary>
+        /// 控制器名称
+        /// </summary>
         public string Controller { get; set; }
 
         /// <summary>
@@ -68,20 +73,28 @@ namespace Magicodes.Mvc.AccessFilter
         ///     排除的前缀
         /// </summary>
         internal static string[] ExcludeUrlPrefixs { get; set; }
-
+        /// <summary>
+        /// 是否记录访问日志
+        /// </summary>
         internal bool EnableAccessLog { get; set; }
 
+        /// <summary>
+        ///     HTTP请求方法
+        /// </summary>
+        public string HttpMethod { get; set; }
+
+        /// <inheritdoc />
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             _currentStopwatch = Stopwatch.StartNew();
 
             if (filterContext.HttpContext.Request.Url != null)
                 RequestUrl = filterContext.HttpContext.Request.Url.ToString();
-            if (RequestUrl == null)
+            if (RequestUrl != null)
             {
                 EnableAccessLog = true;
             }
-            else if (ExcludeUrlPrefixs != null && ExcludeUrlPrefixs.Length > 0)
+            if (EnableAccessLog && (ExcludeUrlPrefixs != null) && (ExcludeUrlPrefixs.Length > 0))
             {
                 foreach (var prefix in ExcludeUrlPrefixs)
                     if (RequestUrl.ToLower().StartsWith(prefix.ToLower()))
@@ -90,7 +103,7 @@ namespace Magicodes.Mvc.AccessFilter
                         break;
                     }
             }
-            else if ((AccessUrlPrefixs != null) && (AccessUrlPrefixs.Length > 0))
+            if (EnableAccessLog && (AccessUrlPrefixs != null) && (AccessUrlPrefixs.Length > 0))
             {
                 foreach (var prefix in AccessUrlPrefixs)
                     if (RequestUrl.ToLower().StartsWith(prefix.ToLower()))
@@ -99,11 +112,10 @@ namespace Magicodes.Mvc.AccessFilter
                         break;
                     }
             }
-            else
-                EnableAccessLog = true;
             if (EnableAccessLog)
             {
                 Action = filterContext.ActionDescriptor.ActionName;
+                HttpMethod = filterContext.HttpContext.Request.HttpMethod;
                 Controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
                 ClientIpAddress = filterContext.HttpContext.GetClientIpAddress();
                 BrowserInfo = filterContext.HttpContext.GetBrowserInfo();
@@ -111,6 +123,7 @@ namespace Magicodes.Mvc.AccessFilter
             base.OnActionExecuting(filterContext);
         }
 
+        /// <inheritdoc />
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             _currentStopwatch.Stop();
