@@ -15,12 +15,18 @@
 
 using System;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Magicodes.Mvc.AccessFilter
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AccessFilterBuilder
     {
-        private Action<AccessFilter, HttpContextBase> OnAccessLoging { get; set; }
+        private Action<AccessFilter, HttpContextBase> OnAccessAction { get; set; }
+        private Action<AccessFilter, AuthorizationContext> OnAuthorizationAction { get; set; }
+
         /// <summary>
         /// 包含的前缀
         /// </summary>
@@ -45,7 +51,18 @@ namespace Magicodes.Mvc.AccessFilter
         /// <returns></returns>
         public AccessFilterBuilder UsingAccessDataAction(Action<AccessFilter, HttpContextBase> accessAction)
         {
-            OnAccessLoging = accessAction;
+            OnAccessAction = accessAction;
+            return this;
+        }
+
+        /// <summary>
+        /// 权限验证
+        /// </summary>
+        /// <param name="onAuthorizationAction">权限处理逻辑</param>
+        /// <returns></returns>
+        public AccessFilterBuilder OnAuthorization(Action<AccessFilter, AuthorizationContext> onAuthorizationAction)
+        {
+            this.OnAuthorizationAction = onAuthorizationAction;
             return this;
         }
 
@@ -76,9 +93,10 @@ namespace Magicodes.Mvc.AccessFilter
         /// </summary>
         public void Build()
         {
-            AccessFilter.OnAccessLoging = OnAccessLoging;
+            AccessFilter.OnAccessAction = OnAccessAction;
             AccessFilter.AccessUrlPrefixs = AccesssUrlPrefixs;
             AccessFilter.ExcludeUrlPrefixs = ExcludeUrlPrefixs;
+            AccessFilter.OnAuthorizationAction = OnAuthorizationAction;
         }
     }
 }

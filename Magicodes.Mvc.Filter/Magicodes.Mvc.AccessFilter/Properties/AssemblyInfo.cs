@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 // 与程序集关联的信息。
 
 [assembly: AssemblyTitle("Magicodes.Mvc.AccessFilter")]
-[assembly: AssemblyDescription("Magicodes访问筛选器")]
+[assembly: AssemblyDescription("Magicodes MVC访问筛选器，可以用于访问日志记录，权限验证等业务。\n官方网址：http://xin-lai.com \n开源库地址:https://github.com/xin-lai \n博客地址：http://www.cnblogs.com/codelove/ \n交流QQ群（Magicodes开源库交流群）：346487194 \n小店地址：https://shop113059108.taobao.com/")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("湖南心莱信息科技有限公司")]
 [assembly: AssemblyProduct("Magicodes.Mvc.AccessFilter")]
@@ -50,5 +50,5 @@ using System.Runtime.InteropServices;
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.0.1.*")]
+[assembly: AssemblyVersion("1.0.*")]
 //[assembly: AssemblyFileVersion("1.0.0.0")]

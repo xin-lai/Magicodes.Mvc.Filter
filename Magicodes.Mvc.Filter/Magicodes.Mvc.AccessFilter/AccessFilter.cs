@@ -20,10 +20,15 @@ using System.Web.Mvc;
 
 namespace Magicodes.Mvc.AccessFilter
 {
-    public class AccessFilter : ActionFilterAttribute
+    /// <summary>
+    /// 访问筛选器
+    /// </summary>
+    public class AccessFilter : ActionFilterAttribute, IAuthorizationFilter
     {
         private Stopwatch _currentStopwatch;
-        internal static Action<AccessFilter, HttpContextBase> OnAccessLoging { get; set; }
+        internal static Action<AccessFilter, HttpContextBase> OnAccessAction { get; set; }
+
+        internal static Action<AccessFilter, AuthorizationContext> OnAuthorizationAction { get; set; }
 
         /// <summary>
         ///     Action请求数据
@@ -132,9 +137,18 @@ namespace Magicodes.Mvc.AccessFilter
                 ExecutionDuration = _currentStopwatch.ElapsedMilliseconds;
                 ContentLength = filterContext.HttpContext.Request.ContentLength;
                 base.OnActionExecuted(filterContext);
-                OnAccessLoging?.Invoke(this, filterContext.HttpContext);
+                OnAccessAction?.Invoke(this, filterContext.HttpContext);
             }
             base.OnActionExecuted(filterContext);
+        }
+
+        /// <summary>
+        /// 权限验证检查
+        /// </summary>
+        /// <param name="filterContext"></param>
+        public void OnAuthorization(AuthorizationContext filterContext)
+        {
+            OnAuthorizationAction?.Invoke(this, filterContext);
         }
     }
 }
